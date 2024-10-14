@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.criteria.*;
 import ru.ifmo.se.model.entity.Person;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -93,35 +92,18 @@ public class PersonRepository {
                         throw new IllegalArgumentException("Could not resolve attribute '" + field + "' of '" + root.getJavaType().getName() + "'");
                     }
 
-                    Predicate predicate;
-                    switch (operator) {
-                        case "=":
-                            predicate = builder.equal(path, value);
-                            break;
-                        case "!=":
-                            predicate = builder.notEqual(path, value);
-                            break;
-                        case ">":
-                            predicate = builder.greaterThan(path.as(String.class), value);
-                            break;
-                        case ">=":
-                            predicate = builder.greaterThanOrEqualTo(path.as(String.class), value);
-                            break;
-                        case "<":
-                            predicate = builder.lessThan(path.as(String.class), value);
-                            break;
-                        case "<=":
-                            predicate = builder.lessThanOrEqualTo(path.as(String.class), value);
-                            break;
-                        case "~":
-                            predicate = builder.like(path.as(String.class), value);
-                            break;
-                        case "!~":
-                            predicate = builder.notLike(path.as(String.class), value);
-                            break;
-                        default:
-                            throw new IllegalArgumentException("Unsupported operator: " + operator);
-                    }
+                    Predicate predicate = switch (operator) {
+                        case "=" -> builder.equal(path, value);
+                        case "!=" -> builder.notEqual(path, value);
+                        case ">" -> builder.greaterThan(path.as(String.class), value);
+                        case ">=" -> builder.greaterThanOrEqualTo(path.as(String.class), value);
+                        case "<" -> builder.lessThan(path.as(String.class), value);
+                        case "<=" -> builder.lessThanOrEqualTo(path.as(String.class), value);
+                        case "~" -> builder.like(path.as(String.class), value);
+                        case "!~" -> builder.notLike(path.as(String.class), value);
+                        default -> throw new IllegalArgumentException("Unsupported operator: " + operator);
+                    };
+
                     predicateStack.push(predicate);
                 }
             }
