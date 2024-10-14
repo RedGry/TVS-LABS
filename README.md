@@ -39,19 +39,19 @@
 7. Экспортировать переменные из файла [.env](.env).
 
 ## Запуск и проверка standalone сервиса
-1. `mvn clean install` внутри директории **lab1/standalone**.
-2. `java -jar lab1-standalone.jar` внутри директории **lab1/standalone/target**.
-3. `mvn clean install` внутри директории **lab1/client**.
-4. `java -jar lab1-client.jar http://localhost:8080/PersonService?wsdl` внутри директории **lab1/client/target**.
+1. `mvn clean install` внутри директории **standalone**.
+2. `java -jar lab1-standalone.jar` внутри директории **standalone/target**.
+3. `mvn clean install` внутри директории **client**.
+4. `java -jar lab1-client.jar http://localhost:8080/PersonService?wsdl` внутри директории **client/target**.
 5. Воспользоваться командами `help`, `exit`, `search`, `clear`.
 
 ## Запуск и проверка j2ee сервиса
-1. `mvn clean install` внутри директории **lab1/j2ee**.
+1. `mvn clean install` внутри директории **j2ee**.
 2. Задеплоить lab1-j2ee.war в WildFly.
    + Можно через интерфейс на дефолтном URL: http://localhost:9990.
    + Либо поместить файл в <wildfly-dir>/standalone/deployment.
-3. `mvn clean install` внутри директории **lab1/client**.
-4. `java -jar lab1-client.jar http://localhost:8080/lab-j2ee/PersonService?wsdl` внутри директории **lab1/client/target**.
+3. `mvn clean install` внутри директории **client**.
+4. `java -jar lab1-client.jar http://localhost:8080/lab-j2ee/PersonService?wsdl` внутри директории **client/target**.
 5. Воспользоваться командами `help`, `exit`, `search`, `clear`.
 
 ## Пример запросов через клиента
