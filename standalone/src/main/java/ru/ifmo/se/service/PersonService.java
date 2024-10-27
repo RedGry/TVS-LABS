@@ -4,6 +4,7 @@ import ru.ifmo.se.mapper.PersonMapper;
 import ru.ifmo.se.model.dto.PersonDto;
 import ru.ifmo.se.model.entity.Person;
 import ru.ifmo.se.repository.PersonRepository;
+import ru.ifmo.se.soap.errors.PersonServiceException;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    public List<Person> searchPersons(String query, int limit, int offset) {
+    public List<Person> searchPersons(String query, int limit, int offset) throws PersonServiceException {
         return personRepository.findPerson(query, limit, offset);
     }
 

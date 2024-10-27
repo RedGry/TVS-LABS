@@ -4,6 +4,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.criteria.*;
 import ru.ifmo.se.model.entity.Person;
+import ru.ifmo.se.soap.errors.FaultBean;
+import ru.ifmo.se.soap.errors.PersonServiceException;
 
 import java.util.List;
 import java.util.Stack;
@@ -15,7 +17,14 @@ public class PersonRepository {
         this.entityManagerFactory = entityManagerFactory;
     }
 
-    public List<Person> findPerson(String query, int limit, int offset) {
+    public List<Person> findPerson(String query, int limit, int offset) throws PersonServiceException {
+        if (limit < 0 || offset < 0) {
+            throw new PersonServiceException(
+                    "Invalid parameters",
+                    new FaultBean("Limit and offset must be non-negative integers.")
+            );
+        }
+
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             CriteriaBuilder builder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Person> criteriaQuery = builder.createQuery(Person.class);
@@ -30,6 +39,12 @@ public class PersonRepository {
                     .setFirstResult(offset)
                     .setMaxResults(limit)
                     .getResultList();
+        } catch (Exception e) {
+            throw new PersonServiceException(
+                    "Error finding persons",
+                    new FaultBean("An error occurred while processing the query. " + e.getMessage()),
+                    e
+            );
         }
     }
 
@@ -134,7 +149,7 @@ public class PersonRepository {
                     try {
                         path = root.get(field);
                     } catch (IllegalArgumentException e) {
-                        throw new IllegalArgumentException("Could not resolve attribute '" + field + "' of '" + root.getJavaType().getName() + "'");
+                        throw new IllegalArgumentException("Could not resolve attribute '" + field + "' of '" + root.getJavaType().getSimpleName() + "'");
                     }
 
                     Predicate predicate = switch (operator) {

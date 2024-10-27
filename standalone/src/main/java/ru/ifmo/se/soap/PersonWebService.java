@@ -7,6 +7,9 @@ import ru.ifmo.se.model.dto.PersonDto;
 import ru.ifmo.se.model.dto.PersonListRequestDto;
 import ru.ifmo.se.model.entity.Person;
 import ru.ifmo.se.service.PersonService;
+import ru.ifmo.se.service.PersonValidationService;
+import ru.ifmo.se.soap.errors.FaultBean;
+import ru.ifmo.se.soap.errors.PersonServiceException;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +23,7 @@ public class PersonWebService {
     }
 
     @WebMethod
-    public List<Person> searchPersons(@WebParam(name = "arg0") PersonListRequestDto personListRequestDto) {
+    public List<Person> searchPersons(@WebParam(name = "arg0") PersonListRequestDto personListRequestDto) throws PersonServiceException {
         if (personListRequestDto == null) {
             System.out.println("Received null PersonListRequestDto");
             return Collections.emptyList();
@@ -38,13 +41,23 @@ public class PersonWebService {
     }
 
     @WebMethod
-    public int createPerson(@WebParam(name = "personDto") PersonDto personDto) {
+    public int createPerson(@WebParam(name = "personDto") PersonDto personDto) throws PersonServiceException {
+        PersonValidationService.validatePersonDto(personDto);
         return personService.createPerson(personDto);
     }
 
     @WebMethod
-    public boolean updatePerson(@WebParam(name = "id") int id, @WebParam(name = "personDto") PersonDto personDto) {
-        return personService.updatePerson(id, personDto);
+    public boolean updatePerson(
+            @WebParam(name = "id") int id,
+            @WebParam(name = "personDto") PersonDto personDto
+    ) throws PersonServiceException {
+        PersonValidationService.validatePersonDto(personDto);
+        boolean updated = personService.updatePerson(id, personDto);
+
+        if (!updated) {
+            throw new PersonServiceException("Person not found", new FaultBean("No person found with id: " + id));
+        }
+        return true;
     }
 
     @WebMethod
