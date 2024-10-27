@@ -3,6 +3,7 @@ package ru.ifmo.se.soap;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 
@@ -31,6 +32,7 @@ import jakarta.xml.bind.annotation.XmlType;
 })
 public class SearchPersons {
 
+    @XmlElement(namespace = "")
     protected PersonListRequestDto arg0;
 
     /**

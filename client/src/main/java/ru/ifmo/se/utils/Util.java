@@ -3,10 +3,8 @@ package ru.ifmo.se.utils;
 import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.ifmo.se.command.CliCommand;
-import ru.ifmo.se.command.ExitCommand;
-import ru.ifmo.se.command.FilterPersonCommand;
-import ru.ifmo.se.command.HelpCommand;
+import ru.ifmo.se.command.*;
+import ru.ifmo.se.soap.PersonDto;
 import ru.ifmo.se.soap.PersonService;
 import ru.ifmo.se.soap.PersonWebService;
 
@@ -49,9 +47,44 @@ public class Util {
         FilterPersonCommand filterPersonCommand = new FilterPersonCommand(personWebServiceProxy, objectMapper);
         commands.put(filterPersonCommand.getName(), filterPersonCommand);
 
+        FindPersonByIdCommand findPersonByIdCommand = new FindPersonByIdCommand(personWebServiceProxy, objectMapper);
+        commands.put(findPersonByIdCommand.getName(), findPersonByIdCommand);
+
+        CreatePersonCommand createPersonCommand = new CreatePersonCommand(personWebServiceProxy);
+        commands.put(createPersonCommand.getName(), createPersonCommand);
+
+        UpdatePersonCommand updatePersonCommand = new UpdatePersonCommand(personWebServiceProxy);
+        commands.put(updatePersonCommand.getName(), updatePersonCommand);
+
+        DeletePersonCommand deletePersonCommand = new DeletePersonCommand(personWebServiceProxy);
+        commands.put(deletePersonCommand.getName(), deletePersonCommand);
+
         HelpCommand helpCommand = new HelpCommand(commands);
         commands.put(helpCommand.getName(), helpCommand);
 
         return commands;
+    }
+
+    public static PersonDto getPersonDtoFromInput(Scanner scanner) {
+        System.out.println("Enter person details:");
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Surname: ");
+        String surname = scanner.nextLine();
+        System.out.print("Age: ");
+        int age = Integer.parseInt(scanner.nextLine());
+        System.out.print("Address: ");
+        String address = scanner.nextLine();
+        System.out.print("Phone number: ");
+        String phoneNumber = scanner.nextLine();
+
+        PersonDto personDto = new PersonDto();
+        personDto.setName(name);
+        personDto.setSurname(surname);
+        personDto.setAge(age);
+        personDto.setAddress(address);
+        personDto.setPhoneNumber(phoneNumber);
+
+        return personDto;
     }
 }

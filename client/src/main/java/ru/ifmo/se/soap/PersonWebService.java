@@ -7,6 +7,7 @@ import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.ws.Action;
 import jakarta.xml.ws.RequestWrapper;
 import jakarta.xml.ws.ResponseWrapper;
 
@@ -26,6 +27,54 @@ public interface PersonWebService {
 
     /**
      * 
+     * @param id
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "deletePersonById", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.DeletePersonById")
+    @ResponseWrapper(localName = "deletePersonByIdResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.DeletePersonByIdResponse")
+    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/deletePersonByIdRequest", output = "http://soap.se.ifmo.ru/PersonWebService/deletePersonByIdResponse")
+    public boolean deletePersonById(
+        @WebParam(name = "id", targetNamespace = "")
+        int id);
+
+    /**
+     * 
+     * @param personDto
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createPerson", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.CreatePerson")
+    @ResponseWrapper(localName = "createPersonResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.CreatePersonResponse")
+    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/createPersonRequest", output = "http://soap.se.ifmo.ru/PersonWebService/createPersonResponse")
+    public int createPerson(
+        @WebParam(name = "personDto", targetNamespace = "")
+        PersonDto personDto);
+
+    /**
+     * 
+     * @param personDto
+     * @param id
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updatePerson", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.UpdatePerson")
+    @ResponseWrapper(localName = "updatePersonResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.UpdatePersonResponse")
+    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/updatePersonRequest", output = "http://soap.se.ifmo.ru/PersonWebService/updatePersonResponse")
+    public boolean updatePerson(
+        @WebParam(name = "id", targetNamespace = "")
+        int id,
+        @WebParam(name = "personDto", targetNamespace = "")
+        PersonDto personDto);
+
+    /**
+     * 
      * @param arg0
      * @return
      *     returns java.util.List<ru.ifmo.se.soap.Person>
@@ -34,8 +83,24 @@ public interface PersonWebService {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "searchPersons", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.SearchPersons")
     @ResponseWrapper(localName = "searchPersonsResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.SearchPersonsResponse")
+    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/searchPersonsRequest", output = "http://soap.se.ifmo.ru/PersonWebService/searchPersonsResponse")
     public List<Person> searchPersons(
         @WebParam(name = "arg0", targetNamespace = "")
         PersonListRequestDto arg0);
+
+    /**
+     * 
+     * @param id
+     * @return
+     *     returns ru.ifmo.se.soap.Person
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "findPersonById", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.FindPersonById")
+    @ResponseWrapper(localName = "findPersonByIdResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.FindPersonByIdResponse")
+    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/findPersonByIdRequest", output = "http://soap.se.ifmo.ru/PersonWebService/findPersonByIdResponse")
+    public Person findPersonById(
+        @WebParam(name = "id", targetNamespace = "")
+        int id);
 
 }

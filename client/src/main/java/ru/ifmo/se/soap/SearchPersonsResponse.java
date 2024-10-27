@@ -34,7 +34,7 @@ import jakarta.xml.bind.annotation.XmlType;
 })
 public class SearchPersonsResponse {
 
-    @XmlElement(name = "return")
+    @XmlElement(name = "return", namespace = "")
     protected List<Person> _return;
 
     /**
