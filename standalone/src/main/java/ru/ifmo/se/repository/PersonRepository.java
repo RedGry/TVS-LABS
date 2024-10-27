@@ -33,6 +33,51 @@ public class PersonRepository {
         }
     }
 
+    public Person readPerson(int id) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            return entityManager.find(Person.class, id);
+        }
+    }
+
+    public int createPerson(Person person) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+            entityManager.persist(person);
+            entityManager.getTransaction().commit();
+            return person.getId();
+        }
+    }
+
+    public boolean updatePerson(int id, Person newDetails) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+            Person existingPerson = entityManager.find(Person.class, id);
+            if (existingPerson == null) {
+                return false;
+            }
+            existingPerson.setName(newDetails.getName());
+            existingPerson.setSurname(newDetails.getSurname());
+            existingPerson.setAge(newDetails.getAge());
+            existingPerson.setAddress(newDetails.getAddress());
+            existingPerson.setPhoneNumber(newDetails.getPhoneNumber());
+            entityManager.getTransaction().commit();
+            return true;
+        }
+    }
+
+    public boolean deletePersonById(int id) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+            Person person = entityManager.find(Person.class, id);
+            if (person == null) {
+                return false;
+            }
+            entityManager.remove(person);
+            entityManager.getTransaction().commit();
+            return true;
+        }
+    }
+
     private Predicate parseQueryToPredicate(String query, CriteriaBuilder builder, Root<Person> root) {
         if (query == null || query.trim().isEmpty()) {
             return null;

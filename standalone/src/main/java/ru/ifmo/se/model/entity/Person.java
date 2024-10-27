@@ -2,12 +2,14 @@ package ru.ifmo.se.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "persons")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Person {
