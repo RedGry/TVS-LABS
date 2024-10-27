@@ -3,6 +3,7 @@ package ru.ifmo.se.command;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.ifmo.se.soap.Person;
 import ru.ifmo.se.soap.PersonWebService;
+import ru.ifmo.se.utils.Util;
 
 import java.util.Scanner;
 
@@ -17,9 +18,7 @@ public class FindPersonByIdCommand implements CliCommand {
 
     @Override
     public void execute(Scanner scanner) {
-        System.out.print("Enter person ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine(); // очистка буфера
+        int id = Util.getIntInput(scanner, "Enter person ID: ", -1);
 
         try {
             Person person = personWebService.findPersonById(id);

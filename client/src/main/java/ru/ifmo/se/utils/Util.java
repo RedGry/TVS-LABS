@@ -8,6 +8,7 @@ import ru.ifmo.se.soap.PersonDto;
 import ru.ifmo.se.soap.PersonService;
 import ru.ifmo.se.soap.PersonWebService;
 
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,25 +67,31 @@ public class Util {
     }
 
     public static PersonDto getPersonDtoFromInput(Scanner scanner) {
-        System.out.println("Enter person details:");
-        System.out.print("Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Surname: ");
-        String surname = scanner.nextLine();
-        System.out.print("Age: ");
-        int age = Integer.parseInt(scanner.nextLine());
-        System.out.print("Address: ");
-        String address = scanner.nextLine();
-        System.out.print("Phone number: ");
-        String phoneNumber = scanner.nextLine();
-
         PersonDto personDto = new PersonDto();
-        personDto.setName(name);
-        personDto.setSurname(surname);
-        personDto.setAge(age);
-        personDto.setAddress(address);
-        personDto.setPhoneNumber(phoneNumber);
+        System.out.println("Enter person details:");
+        for (Field field : PersonDto.class.getDeclaredFields()) {
+            field.setAccessible(true);
+            System.out.print(field.getName() + " (" + field.getType().getSimpleName() + "): ");
+            try {
+                if (field.getType() == String.class) {
+                    String input = scanner.nextLine();
+                    field.set(personDto, input);
 
+                } else if (field.getType() == int.class) {
+                    while (true) {
+                        try {
+                            int input = Integer.parseInt(scanner.nextLine());
+                            field.set(personDto, input);
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.print("Invalid format. Please enter a valid integer for " + field.getName() + ": ");
+                        }
+                    }
+                }
+            } catch (IllegalAccessException e) {
+                System.out.println("Error setting value for field " + field.getName() + ": " + e.getMessage());
+            }
+        }
         return personDto;
     }
 }

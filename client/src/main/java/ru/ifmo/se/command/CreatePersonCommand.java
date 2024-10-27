@@ -1,6 +1,7 @@
 package ru.ifmo.se.command;
 
 import ru.ifmo.se.soap.PersonDto;
+import ru.ifmo.se.soap.PersonServiceException;
 import ru.ifmo.se.soap.PersonWebService;
 import ru.ifmo.se.utils.Util;
 
@@ -20,6 +21,8 @@ public class CreatePersonCommand implements CliCommand {
         try {
             int id = personWebService.createPerson(personDto);
             System.out.println("Created person with ID: " + id);
+        } catch (PersonServiceException e) {
+            System.out.println("Error creating person: " + e.getFaultInfo().getMessage());
         } catch (Exception e) {
             System.out.println("Error creating person: " + e.getMessage());
         }

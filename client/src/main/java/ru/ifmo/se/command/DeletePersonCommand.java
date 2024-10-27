@@ -1,6 +1,7 @@
 package ru.ifmo.se.command;
 
 import ru.ifmo.se.soap.PersonWebService;
+import ru.ifmo.se.utils.Util;
 
 import java.util.Scanner;
 
@@ -13,8 +14,7 @@ public class DeletePersonCommand implements CliCommand {
 
     @Override
     public void execute(Scanner scanner) {
-        System.out.print("Enter person ID to delete: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = Util.getIntInput(scanner, "Enter person ID to delete: ", -1);
 
         try {
             boolean success = personWebService.deletePersonById(id);
@@ -24,7 +24,7 @@ public class DeletePersonCommand implements CliCommand {
                 System.out.println("Person with ID " + id + " not found.");
             }
         } catch (Exception e) {
-            System.out.println("Error deleting person: " + e.getMessage());
+            System.out.println("Unexpected error deleting person: " + e.getMessage());
         }
     }
 

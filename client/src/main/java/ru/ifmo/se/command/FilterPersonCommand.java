@@ -3,6 +3,7 @@ package ru.ifmo.se.command;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.ifmo.se.soap.Person;
 import ru.ifmo.se.soap.PersonListRequestDto;
+import ru.ifmo.se.soap.PersonServiceException;
 import ru.ifmo.se.soap.PersonWebService;
 import ru.ifmo.se.utils.Util;
 
@@ -47,6 +48,8 @@ public class FilterPersonCommand implements CliCommand {
             List<Person> filteredPersons = personWebService.searchPersons(personListRequestDto);
             String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(filteredPersons);
             System.out.println(json);
+        } catch (PersonServiceException e) {
+            System.out.println("Error finding persons: " + e.getFaultInfo().getMessage());
         } catch (Exception e) {
             System.out.println("Error filtering persons: " + e.getMessage());
         }

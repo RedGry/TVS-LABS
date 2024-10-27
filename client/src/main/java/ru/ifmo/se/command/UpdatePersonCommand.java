@@ -2,6 +2,7 @@ package ru.ifmo.se.command;
 
 import ru.ifmo.se.soap.Person;
 import ru.ifmo.se.soap.PersonDto;
+import ru.ifmo.se.soap.PersonServiceException;
 import ru.ifmo.se.soap.PersonWebService;
 import ru.ifmo.se.utils.Util;
 
@@ -16,8 +17,7 @@ public class UpdatePersonCommand implements CliCommand {
 
     @Override
     public void execute(Scanner scanner) {
-        System.out.print("Enter person ID to update: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = Util.getIntInput(scanner, "Enter person ID to update: ", -1);
 
         try {
             Person existingPerson = personWebService.findPersonById(id);
@@ -35,6 +35,8 @@ public class UpdatePersonCommand implements CliCommand {
             } else {
                 System.out.println("Failed to update person.");
             }
+        } catch (PersonServiceException e) {
+            System.out.println("Error updating person: " + e.getFaultInfo().getMessage());
         } catch (Exception e) {
             System.out.println("Error updating person: " + e.getMessage());
         }

@@ -8,6 +8,7 @@ import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.ws.Action;
+import jakarta.xml.ws.FaultAction;
 import jakarta.xml.ws.RequestWrapper;
 import jakarta.xml.ws.ResponseWrapper;
 
@@ -27,6 +28,49 @@ public interface PersonWebService {
 
     /**
      * 
+     * @param personDto
+     * @return
+     *     returns int
+     * @throws PersonServiceException
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createPerson", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.CreatePerson")
+    @ResponseWrapper(localName = "createPersonResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.CreatePersonResponse")
+    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/createPersonRequest", output = "http://soap.se.ifmo.ru/PersonWebService/createPersonResponse", fault = {
+        @FaultAction(className = PersonServiceException.class, value = "http://soap.se.ifmo.ru/PersonWebService/createPerson/Fault/PersonServiceException")
+    })
+    public int createPerson(
+        @WebParam(name = "personDto", targetNamespace = "")
+        PersonDto personDto)
+        throws PersonServiceException
+    ;
+
+    /**
+     * 
+     * @param personDto
+     * @param id
+     * @return
+     *     returns boolean
+     * @throws PersonServiceException
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updatePerson", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.UpdatePerson")
+    @ResponseWrapper(localName = "updatePersonResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.UpdatePersonResponse")
+    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/updatePersonRequest", output = "http://soap.se.ifmo.ru/PersonWebService/updatePersonResponse", fault = {
+        @FaultAction(className = PersonServiceException.class, value = "http://soap.se.ifmo.ru/PersonWebService/updatePerson/Fault/PersonServiceException")
+    })
+    public boolean updatePerson(
+        @WebParam(name = "id", targetNamespace = "")
+        int id,
+        @WebParam(name = "personDto", targetNamespace = "")
+        PersonDto personDto)
+        throws PersonServiceException
+    ;
+
+    /**
+     * 
      * @param id
      * @return
      *     returns boolean
@@ -42,51 +86,23 @@ public interface PersonWebService {
 
     /**
      * 
-     * @param personDto
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "createPerson", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.CreatePerson")
-    @ResponseWrapper(localName = "createPersonResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.CreatePersonResponse")
-    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/createPersonRequest", output = "http://soap.se.ifmo.ru/PersonWebService/createPersonResponse")
-    public int createPerson(
-        @WebParam(name = "personDto", targetNamespace = "")
-        PersonDto personDto);
-
-    /**
-     * 
-     * @param personDto
-     * @param id
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "updatePerson", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.UpdatePerson")
-    @ResponseWrapper(localName = "updatePersonResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.UpdatePersonResponse")
-    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/updatePersonRequest", output = "http://soap.se.ifmo.ru/PersonWebService/updatePersonResponse")
-    public boolean updatePerson(
-        @WebParam(name = "id", targetNamespace = "")
-        int id,
-        @WebParam(name = "personDto", targetNamespace = "")
-        PersonDto personDto);
-
-    /**
-     * 
      * @param arg0
      * @return
      *     returns java.util.List<ru.ifmo.se.soap.Person>
+     * @throws PersonServiceException
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "searchPersons", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.SearchPersons")
     @ResponseWrapper(localName = "searchPersonsResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.SearchPersonsResponse")
-    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/searchPersonsRequest", output = "http://soap.se.ifmo.ru/PersonWebService/searchPersonsResponse")
+    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/searchPersonsRequest", output = "http://soap.se.ifmo.ru/PersonWebService/searchPersonsResponse", fault = {
+        @FaultAction(className = PersonServiceException.class, value = "http://soap.se.ifmo.ru/PersonWebService/searchPersons/Fault/PersonServiceException")
+    })
     public List<Person> searchPersons(
         @WebParam(name = "arg0", targetNamespace = "")
-        PersonListRequestDto arg0);
+        PersonListRequestDto arg0)
+        throws PersonServiceException
+    ;
 
     /**
      * 

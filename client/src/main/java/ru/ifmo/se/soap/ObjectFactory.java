@@ -24,6 +24,7 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _PersonServiceFault_QNAME = new QName("http://soap.se.ifmo.ru/", "PersonServiceFault");
     private final static QName _CreatePerson_QNAME = new QName("http://soap.se.ifmo.ru/", "createPerson");
     private final static QName _CreatePersonResponse_QNAME = new QName("http://soap.se.ifmo.ru/", "createPersonResponse");
     private final static QName _DeletePersonById_QNAME = new QName("http://soap.se.ifmo.ru/", "deletePersonById");
@@ -40,6 +41,14 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link FaultBean }
+     * 
+     */
+    public FaultBean createFaultBean() {
+        return new FaultBean();
     }
 
     /**
@@ -144,6 +153,19 @@ public class ObjectFactory {
      */
     public PersonListRequestDto createPersonListRequestDto() {
         return new PersonListRequestDto();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FaultBean }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link FaultBean }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "PersonServiceFault")
+    public JAXBElement<FaultBean> createPersonServiceFault(FaultBean value) {
+        return new JAXBElement<FaultBean>(_PersonServiceFault_QNAME, FaultBean.class, null, value);
     }
 
     /**
