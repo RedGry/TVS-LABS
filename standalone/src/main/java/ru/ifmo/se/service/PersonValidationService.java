@@ -1,8 +1,8 @@
 package ru.ifmo.se.service;
 
+import ru.ifmo.se.controller.errors.FaultBean;
+import ru.ifmo.se.controller.errors.PersonServiceException;
 import ru.ifmo.se.model.dto.PersonDto;
-import ru.ifmo.se.soap.errors.FaultBean;
-import ru.ifmo.se.soap.errors.PersonServiceException;
 
 public class PersonValidationService {
     private static final String PHONE_REGEX = "^\\+?[0-9]{10,15}$";

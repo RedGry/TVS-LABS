@@ -1,4 +1,4 @@
-package ru.ifmo.se.soap.errors;
+package ru.ifmo.se.controller.errors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

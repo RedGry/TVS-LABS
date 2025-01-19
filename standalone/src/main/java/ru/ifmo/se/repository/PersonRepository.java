@@ -3,9 +3,9 @@ package ru.ifmo.se.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.criteria.*;
+import ru.ifmo.se.controller.errors.FaultBean;
+import ru.ifmo.se.controller.errors.PersonServiceException;
 import ru.ifmo.se.model.entity.Person;
-import ru.ifmo.se.soap.errors.FaultBean;
-import ru.ifmo.se.soap.errors.PersonServiceException;
 
 import java.util.List;
 import java.util.Stack;

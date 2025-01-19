@@ -1,11 +1,6 @@
-package ru.ifmo.se.soap.errors;
+package ru.ifmo.se.controller.errors;
 
-import jakarta.xml.ws.WebFault;
-import lombok.Getter;
-
-@Getter
-@WebFault(name = "PersonServiceFault")
-public class PersonServiceException extends Exception {
+public class PersonServiceException extends RuntimeException {
     private final FaultBean faultInfo;
 
     public PersonServiceException(String message, FaultBean faultInfo) {
@@ -16,5 +11,9 @@ public class PersonServiceException extends Exception {
     public PersonServiceException(String message, FaultBean faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
+    }
+
+    public FaultBean getFaultInfo() {
+        return faultInfo;
     }
 }
