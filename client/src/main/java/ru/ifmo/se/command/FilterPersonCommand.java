@@ -1,10 +1,8 @@
 package ru.ifmo.se.command;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.ifmo.se.soap.Person;
-import ru.ifmo.se.soap.PersonListRequestDto;
-import ru.ifmo.se.soap.PersonServiceException;
-import ru.ifmo.se.soap.PersonWebService;
+import ru.ifmo.se.restclient.PersonDto;
+import ru.ifmo.se.restclient.PersonRestClient;
 import ru.ifmo.se.utils.Util;
 
 import java.lang.reflect.Field;
@@ -12,11 +10,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FilterPersonCommand implements CliCommand {
-    private final PersonWebService personWebService;
+    private final PersonRestClient personRestClient;
     private final ObjectMapper objectMapper;
 
-    public FilterPersonCommand(PersonWebService personWebService, ObjectMapper objectMapper) {
-        this.personWebService = personWebService;
+    public FilterPersonCommand(PersonRestClient personRestClient, ObjectMapper objectMapper) {
+        this.personRestClient = personRestClient;
         this.objectMapper = objectMapper;
     }
 
@@ -24,7 +22,7 @@ public class FilterPersonCommand implements CliCommand {
     public void execute(Scanner scanner) {
         try {
             System.out.println("Available fields for filtering Person:");
-            for (Field field : Person.class.getDeclaredFields()) {
+            for (Field field : PersonDto.class.getDeclaredFields()) {
                 System.out.println("- " + field.getName() + ": " + field.getType().getSimpleName());
             }
             System.out.println();
@@ -40,17 +38,11 @@ public class FilterPersonCommand implements CliCommand {
             int limit = Util.getIntInput(scanner, "Enter limit (default 10): ", 10);
             int offset = Util.getIntInput(scanner, "Enter offset (default 0): ", 0);
 
-            PersonListRequestDto personListRequestDto = new PersonListRequestDto();
-            personListRequestDto.setLimit(limit);
-            personListRequestDto.setOffset(offset);
-            personListRequestDto.setQuery(query);
-
-            List<Person> filteredPersons = personWebService.searchPersons(personListRequestDto);
+            List<PersonDto> filteredPersons = personRestClient.searchPersons(query, limit, offset);
             String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(filteredPersons);
             System.out.println(json);
-        } catch (PersonServiceException e) {
-            System.out.println("Error finding persons: " + e.getFaultInfo().getMessage());
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Error filtering persons: " + e.getMessage());
         }
     }

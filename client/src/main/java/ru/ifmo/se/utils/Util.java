@@ -3,13 +3,14 @@ package ru.ifmo.se.utils;
 import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
 import ru.ifmo.se.command.*;
-import ru.ifmo.se.soap.PersonDto;
-import ru.ifmo.se.soap.PersonService;
-import ru.ifmo.se.soap.PersonWebService;
+import ru.ifmo.se.restclient.PersonDto;
+import ru.ifmo.se.restclient.PersonRestClient;
 
 import java.lang.reflect.Field;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -30,7 +31,7 @@ public class Util {
         }
     }
 
-    public static Map<String, CliCommand> produceCommands(String soapUrl) throws Exception {
+    public static Map<String, CliCommand> produceCommands(String restUrl) {
         Map<String, CliCommand> commands = new HashMap<>();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -38,26 +39,25 @@ public class Util {
         prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
         objectMapper.setDefaultPrettyPrinter(prettyPrinter);
 
-        URL url = new URL(soapUrl);
-        PersonService personService = new PersonService(url);
-        PersonWebService personWebServiceProxy = personService.getPersonWebServicePort();
+        Client restClient = ClientBuilder.newClient().register(JacksonJsonProvider.class);
+        PersonRestClient personRestClient = new PersonRestClient(restUrl, restClient);
 
         ExitCommand exitCommand = new ExitCommand();
         commands.put(exitCommand.getName(), exitCommand);
 
-        FilterPersonCommand filterPersonCommand = new FilterPersonCommand(personWebServiceProxy, objectMapper);
+        FilterPersonCommand filterPersonCommand = new FilterPersonCommand(personRestClient, objectMapper);
         commands.put(filterPersonCommand.getName(), filterPersonCommand);
 
-        FindPersonByIdCommand findPersonByIdCommand = new FindPersonByIdCommand(personWebServiceProxy, objectMapper);
+        FindPersonByIdCommand findPersonByIdCommand = new FindPersonByIdCommand(personRestClient, objectMapper);
         commands.put(findPersonByIdCommand.getName(), findPersonByIdCommand);
 
-        CreatePersonCommand createPersonCommand = new CreatePersonCommand(personWebServiceProxy);
+        CreatePersonCommand createPersonCommand = new CreatePersonCommand(personRestClient);
         commands.put(createPersonCommand.getName(), createPersonCommand);
 
-        UpdatePersonCommand updatePersonCommand = new UpdatePersonCommand(personWebServiceProxy);
+        UpdatePersonCommand updatePersonCommand = new UpdatePersonCommand(personRestClient);
         commands.put(updatePersonCommand.getName(), updatePersonCommand);
 
-        DeletePersonCommand deletePersonCommand = new DeletePersonCommand(personWebServiceProxy);
+        DeletePersonCommand deletePersonCommand = new DeletePersonCommand(personRestClient);
         commands.put(deletePersonCommand.getName(), deletePersonCommand);
 
         HelpCommand helpCommand = new HelpCommand(commands);
@@ -71,6 +71,11 @@ public class Util {
         System.out.println("Enter person details:");
         for (Field field : PersonDto.class.getDeclaredFields()) {
             field.setAccessible(true);
+
+            if (field.getName().equals("id")) {
+                continue;
+            }
+
             System.out.print(field.getName() + " (" + field.getType().getSimpleName() + "): ");
             try {
                 if (field.getType() == String.class) {

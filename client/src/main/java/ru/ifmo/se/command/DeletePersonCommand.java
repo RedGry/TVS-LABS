@@ -1,15 +1,15 @@
 package ru.ifmo.se.command;
 
-import ru.ifmo.se.soap.PersonWebService;
+import ru.ifmo.se.restclient.PersonRestClient;
 import ru.ifmo.se.utils.Util;
 
 import java.util.Scanner;
 
 public class DeletePersonCommand implements CliCommand {
-    private final PersonWebService personWebService;
+    private final PersonRestClient personRestClient;
 
-    public DeletePersonCommand(PersonWebService personWebService) {
-        this.personWebService = personWebService;
+    public DeletePersonCommand(PersonRestClient personRestClient) {
+        this.personRestClient = personRestClient;
     }
 
     @Override
@@ -17,7 +17,7 @@ public class DeletePersonCommand implements CliCommand {
         int id = Util.getIntInput(scanner, "Enter person ID to delete: ", -1);
 
         try {
-            boolean success = personWebService.deletePersonById(id);
+            boolean success = personRestClient.deletePerson(id);
             if (success) {
                 System.out.println("Person deleted successfully.");
             } else {

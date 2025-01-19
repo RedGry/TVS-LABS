@@ -7,20 +7,20 @@ import java.util.Scanner;
 
 import static ru.ifmo.se.utils.Util.produceCommands;
 
-public class CliSoapClientApp {
+public class CliRestClientApp {
     public static void main(String[] args) {
-        String soapUrl = System.getenv("SOAP_SERVICE_URL");
+        String restUrl = System.getenv("REST_SERVICE_URL");
         if (args.length > 0) {
-            soapUrl = args[0];
+            restUrl = args[0];
         }
 
-        if (soapUrl == null || soapUrl.isEmpty()) {
-            System.out.println("SOAP service URL must be provided via environment variable or command line argument.");
+        if (restUrl == null || restUrl.isEmpty()) {
+            System.out.println("REST service URL must be provided via environment variable or command line argument.");
             return;
         }
 
         try {
-            Map<String, CliCommand> commands = produceCommands(soapUrl);
+            Map<String, CliCommand> commands = produceCommands(restUrl);
             Scanner scanner = new Scanner(System.in);
 
             System.out.println("Available commands:");
@@ -51,7 +51,7 @@ public class CliSoapClientApp {
                     try {
                         command.execute(scanner);
                     } catch (Exception e) {
-                        System.out.println("Cannot execute command. SOAP service is not available.");
+                        System.out.println("Cannot execute command. REST service is not available.");
                     }
                 } else {
                     System.out.println("Unknown command. Type 'help' for a list of available commands.");
@@ -60,7 +60,8 @@ public class CliSoapClientApp {
                 System.out.println();
             }
         } catch (Exception e) {
-            System.out.println("SOAP service could not be initialized. Commands are unavailable.");
+            e.printStackTrace();
+            System.out.println("REST service could not be initialized. Commands are unavailable.");
         }
     }
 

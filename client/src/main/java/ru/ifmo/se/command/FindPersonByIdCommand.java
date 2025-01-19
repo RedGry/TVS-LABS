@@ -1,18 +1,18 @@
 package ru.ifmo.se.command;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.ifmo.se.soap.Person;
-import ru.ifmo.se.soap.PersonWebService;
+import ru.ifmo.se.restclient.PersonDto;
+import ru.ifmo.se.restclient.PersonRestClient;
 import ru.ifmo.se.utils.Util;
 
 import java.util.Scanner;
 
 public class FindPersonByIdCommand implements CliCommand {
-    private final PersonWebService personWebService;
+    private final PersonRestClient personRestClient;
     private final ObjectMapper objectMapper;
 
-    public FindPersonByIdCommand(PersonWebService personWebService, ObjectMapper objectMapper) {
-        this.personWebService = personWebService;
+    public FindPersonByIdCommand(PersonRestClient personRestClient, ObjectMapper objectMapper) {
+        this.personRestClient = personRestClient;
         this.objectMapper = objectMapper;
     }
 
@@ -21,7 +21,7 @@ public class FindPersonByIdCommand implements CliCommand {
         int id = Util.getIntInput(scanner, "Enter person ID: ", -1);
 
         try {
-            Person person = personWebService.findPersonById(id);
+            PersonDto person = personRestClient.findPersonById(id);
             if (person == null) {
                 System.out.println("Person with ID " + id + " not found.");
                 return;
@@ -31,7 +31,7 @@ public class FindPersonByIdCommand implements CliCommand {
             System.out.println("Found person: ");
             System.out.println(json);
         } catch (Exception e) {
-            System.out.println("Error finding person by ID: " + e.getMessage());
+            System.out.println("Error finding person by ID: " + id);
         }
     }
 
