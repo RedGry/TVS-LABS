@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.ifmo.se.soap.Person;
 import ru.ifmo.se.soap.PersonListRequestDto;
 import ru.ifmo.se.soap.PersonServiceException;
-import ru.ifmo.se.soap.PersonWebService;
+import ru.ifmo.se.utils.ProxyPool;
 import ru.ifmo.se.utils.Util;
 
 import java.lang.reflect.Field;
@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FilterPersonCommand implements CliCommand {
-    private final PersonWebService personWebService;
+    private final ProxyPool proxyPool;
     private final ObjectMapper objectMapper;
 
-    public FilterPersonCommand(PersonWebService personWebService, ObjectMapper objectMapper) {
-        this.personWebService = personWebService;
+    public FilterPersonCommand(ProxyPool proxyPool, ObjectMapper objectMapper) {
+        this.proxyPool = proxyPool;
         this.objectMapper = objectMapper;
     }
 
@@ -45,9 +45,15 @@ public class FilterPersonCommand implements CliCommand {
             personListRequestDto.setOffset(offset);
             personListRequestDto.setQuery(query);
 
-            List<Person> filteredPersons = personWebService.searchPersons(personListRequestDto);
-            String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(filteredPersons);
-            System.out.println(json);
+            var personWebService = proxyPool.acquireProxy();
+            try {
+                List<Person> filteredPersons = personWebService.searchPersons(personListRequestDto);
+                String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(filteredPersons);
+                System.out.println(json);
+            } finally {
+                // Возвращаем прокси обратно в пул
+                proxyPool.releaseProxy(personWebService);
+            }
         } catch (PersonServiceException e) {
             System.out.println("Error finding persons: " + e.getFaultInfo().getMessage());
         } catch (Exception e) {

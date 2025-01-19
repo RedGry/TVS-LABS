@@ -1,6 +1,7 @@
 package ru.ifmo.se;
 
 import ru.ifmo.se.command.CliCommand;
+import ru.ifmo.se.utils.ProxyPool;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -20,7 +21,11 @@ public class CliSoapClientApp {
         }
 
         try {
-            Map<String, CliCommand> commands = produceCommands(soapUrl);
+            // Создаем пул прокси-объектов
+            ProxyPool proxyPool = new ProxyPool(soapUrl, 5);
+
+            // Генерируем команды с учетом пула прокси
+            Map<String, CliCommand> commands = produceCommands(proxyPool);
             Scanner scanner = new Scanner(System.in);
 
             System.out.println("Available commands:");

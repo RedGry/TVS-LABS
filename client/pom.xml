@@ -119,6 +119,7 @@
 <!--                <configuration>-->
 <!--                    <wsdlUrls>-->
 <!--                        <wsdlUrl>http://localhost:8080/PersonService?wsdl</wsdlUrl>-->
+<!--                        <wsdlUrl>http://localhost:8080/FileService?wsdl</wsdlUrl>-->
 <!--                    </wsdlUrls>-->
 <!--                    <verbose>true</verbose>-->
 <!--                    <sourceDestDir>${basedir}/src/main/java</sourceDestDir>-->

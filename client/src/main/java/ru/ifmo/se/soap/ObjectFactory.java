@@ -24,17 +24,20 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _PersonServiceFault_QNAME = new QName("http://soap.se.ifmo.ru/", "PersonServiceFault");
-    private final static QName _CreatePerson_QNAME = new QName("http://soap.se.ifmo.ru/", "createPerson");
-    private final static QName _CreatePersonResponse_QNAME = new QName("http://soap.se.ifmo.ru/", "createPersonResponse");
-    private final static QName _DeletePersonById_QNAME = new QName("http://soap.se.ifmo.ru/", "deletePersonById");
-    private final static QName _DeletePersonByIdResponse_QNAME = new QName("http://soap.se.ifmo.ru/", "deletePersonByIdResponse");
-    private final static QName _FindPersonById_QNAME = new QName("http://soap.se.ifmo.ru/", "findPersonById");
-    private final static QName _FindPersonByIdResponse_QNAME = new QName("http://soap.se.ifmo.ru/", "findPersonByIdResponse");
-    private final static QName _SearchPersons_QNAME = new QName("http://soap.se.ifmo.ru/", "searchPersons");
-    private final static QName _SearchPersonsResponse_QNAME = new QName("http://soap.se.ifmo.ru/", "searchPersonsResponse");
-    private final static QName _UpdatePerson_QNAME = new QName("http://soap.se.ifmo.ru/", "updatePerson");
-    private final static QName _UpdatePersonResponse_QNAME = new QName("http://soap.se.ifmo.ru/", "updatePersonResponse");
+    private final static QName _DeleteFileById_QNAME = new QName("http://soap.se.ifmo.ru/", "deleteFileById");
+    private final static QName _DeleteFileByIdResponse_QNAME = new QName("http://soap.se.ifmo.ru/", "deleteFileByIdResponse");
+    private final static QName _DownloadFile_QNAME = new QName("http://soap.se.ifmo.ru/", "downloadFile");
+    private final static QName _DownloadFileById_QNAME = new QName("http://soap.se.ifmo.ru/", "downloadFileById");
+    private final static QName _DownloadFileByIdResponse_QNAME = new QName("http://soap.se.ifmo.ru/", "downloadFileByIdResponse");
+    private final static QName _DownloadFileResponse_QNAME = new QName("http://soap.se.ifmo.ru/", "downloadFileResponse");
+    private final static QName _GetFileNameById_QNAME = new QName("http://soap.se.ifmo.ru/", "getFileNameById");
+    private final static QName _GetFileNameByIdResponse_QNAME = new QName("http://soap.se.ifmo.ru/", "getFileNameByIdResponse");
+    private final static QName _ListFiles_QNAME = new QName("http://soap.se.ifmo.ru/", "listFiles");
+    private final static QName _ListFilesResponse_QNAME = new QName("http://soap.se.ifmo.ru/", "listFilesResponse");
+    private final static QName _UploadFile_QNAME = new QName("http://soap.se.ifmo.ru/", "uploadFile");
+    private final static QName _UploadFileResponse_QNAME = new QName("http://soap.se.ifmo.ru/", "uploadFileResponse");
+    private final static QName _UploadFileArg1_QNAME = new QName("", "arg1");
+    private final static QName _DownloadFileResponseReturn_QNAME = new QName("", "return");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.ifmo.se.soap
@@ -44,258 +47,294 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link FaultBean }
+     * Create an instance of {@link DeleteFileById }
      * 
      */
-    public FaultBean createFaultBean() {
-        return new FaultBean();
+    public DeleteFileById createDeleteFileById() {
+        return new DeleteFileById();
     }
 
     /**
-     * Create an instance of {@link CreatePerson }
+     * Create an instance of {@link DeleteFileByIdResponse }
      * 
      */
-    public CreatePerson createCreatePerson() {
-        return new CreatePerson();
+    public DeleteFileByIdResponse createDeleteFileByIdResponse() {
+        return new DeleteFileByIdResponse();
     }
 
     /**
-     * Create an instance of {@link CreatePersonResponse }
+     * Create an instance of {@link DownloadFile }
      * 
      */
-    public CreatePersonResponse createCreatePersonResponse() {
-        return new CreatePersonResponse();
+    public DownloadFile createDownloadFile() {
+        return new DownloadFile();
     }
 
     /**
-     * Create an instance of {@link DeletePersonById }
+     * Create an instance of {@link DownloadFileById }
      * 
      */
-    public DeletePersonById createDeletePersonById() {
-        return new DeletePersonById();
+    public DownloadFileById createDownloadFileById() {
+        return new DownloadFileById();
     }
 
     /**
-     * Create an instance of {@link DeletePersonByIdResponse }
+     * Create an instance of {@link DownloadFileByIdResponse }
      * 
      */
-    public DeletePersonByIdResponse createDeletePersonByIdResponse() {
-        return new DeletePersonByIdResponse();
+    public DownloadFileByIdResponse createDownloadFileByIdResponse() {
+        return new DownloadFileByIdResponse();
     }
 
     /**
-     * Create an instance of {@link FindPersonById }
+     * Create an instance of {@link DownloadFileResponse }
      * 
      */
-    public FindPersonById createFindPersonById() {
-        return new FindPersonById();
+    public DownloadFileResponse createDownloadFileResponse() {
+        return new DownloadFileResponse();
     }
 
     /**
-     * Create an instance of {@link FindPersonByIdResponse }
+     * Create an instance of {@link GetFileNameById }
      * 
      */
-    public FindPersonByIdResponse createFindPersonByIdResponse() {
-        return new FindPersonByIdResponse();
+    public GetFileNameById createGetFileNameById() {
+        return new GetFileNameById();
     }
 
     /**
-     * Create an instance of {@link SearchPersons }
+     * Create an instance of {@link GetFileNameByIdResponse }
      * 
      */
-    public SearchPersons createSearchPersons() {
-        return new SearchPersons();
+    public GetFileNameByIdResponse createGetFileNameByIdResponse() {
+        return new GetFileNameByIdResponse();
     }
 
     /**
-     * Create an instance of {@link SearchPersonsResponse }
+     * Create an instance of {@link ListFiles }
      * 
      */
-    public SearchPersonsResponse createSearchPersonsResponse() {
-        return new SearchPersonsResponse();
+    public ListFiles createListFiles() {
+        return new ListFiles();
     }
 
     /**
-     * Create an instance of {@link UpdatePerson }
+     * Create an instance of {@link ListFilesResponse }
      * 
      */
-    public UpdatePerson createUpdatePerson() {
-        return new UpdatePerson();
+    public ListFilesResponse createListFilesResponse() {
+        return new ListFilesResponse();
     }
 
     /**
-     * Create an instance of {@link UpdatePersonResponse }
+     * Create an instance of {@link UploadFile }
      * 
      */
-    public UpdatePersonResponse createUpdatePersonResponse() {
-        return new UpdatePersonResponse();
+    public UploadFile createUploadFile() {
+        return new UploadFile();
     }
 
     /**
-     * Create an instance of {@link PersonDto }
+     * Create an instance of {@link UploadFileResponse }
      * 
      */
-    public PersonDto createPersonDto() {
-        return new PersonDto();
+    public UploadFileResponse createUploadFileResponse() {
+        return new UploadFileResponse();
     }
 
     /**
-     * Create an instance of {@link Person }
-     * 
-     */
-    public Person createPerson() {
-        return new Person();
-    }
-
-    /**
-     * Create an instance of {@link PersonListRequestDto }
-     * 
-     */
-    public PersonListRequestDto createPersonListRequestDto() {
-        return new PersonListRequestDto();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FaultBean }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteFileById }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link FaultBean }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link DeleteFileById }{@code >}
      */
-    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "PersonServiceFault")
-    public JAXBElement<FaultBean> createPersonServiceFault(FaultBean value) {
-        return new JAXBElement<FaultBean>(_PersonServiceFault_QNAME, FaultBean.class, null, value);
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "deleteFileById")
+    public JAXBElement<DeleteFileById> createDeleteFileById(DeleteFileById value) {
+        return new JAXBElement<DeleteFileById>(_DeleteFileById_QNAME, DeleteFileById.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreatePerson }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteFileByIdResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CreatePerson }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link DeleteFileByIdResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "createPerson")
-    public JAXBElement<CreatePerson> createCreatePerson(CreatePerson value) {
-        return new JAXBElement<CreatePerson>(_CreatePerson_QNAME, CreatePerson.class, null, value);
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "deleteFileByIdResponse")
+    public JAXBElement<DeleteFileByIdResponse> createDeleteFileByIdResponse(DeleteFileByIdResponse value) {
+        return new JAXBElement<DeleteFileByIdResponse>(_DeleteFileByIdResponse_QNAME, DeleteFileByIdResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreatePersonResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DownloadFile }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link CreatePersonResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link DownloadFile }{@code >}
      */
-    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "createPersonResponse")
-    public JAXBElement<CreatePersonResponse> createCreatePersonResponse(CreatePersonResponse value) {
-        return new JAXBElement<CreatePersonResponse>(_CreatePersonResponse_QNAME, CreatePersonResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "downloadFile")
+    public JAXBElement<DownloadFile> createDownloadFile(DownloadFile value) {
+        return new JAXBElement<DownloadFile>(_DownloadFile_QNAME, DownloadFile.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeletePersonById }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DownloadFileById }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link DeletePersonById }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link DownloadFileById }{@code >}
      */
-    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "deletePersonById")
-    public JAXBElement<DeletePersonById> createDeletePersonById(DeletePersonById value) {
-        return new JAXBElement<DeletePersonById>(_DeletePersonById_QNAME, DeletePersonById.class, null, value);
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "downloadFileById")
+    public JAXBElement<DownloadFileById> createDownloadFileById(DownloadFileById value) {
+        return new JAXBElement<DownloadFileById>(_DownloadFileById_QNAME, DownloadFileById.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeletePersonByIdResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DownloadFileByIdResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link DeletePersonByIdResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link DownloadFileByIdResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "deletePersonByIdResponse")
-    public JAXBElement<DeletePersonByIdResponse> createDeletePersonByIdResponse(DeletePersonByIdResponse value) {
-        return new JAXBElement<DeletePersonByIdResponse>(_DeletePersonByIdResponse_QNAME, DeletePersonByIdResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "downloadFileByIdResponse")
+    public JAXBElement<DownloadFileByIdResponse> createDownloadFileByIdResponse(DownloadFileByIdResponse value) {
+        return new JAXBElement<DownloadFileByIdResponse>(_DownloadFileByIdResponse_QNAME, DownloadFileByIdResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FindPersonById }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DownloadFileResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link FindPersonById }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link DownloadFileResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "findPersonById")
-    public JAXBElement<FindPersonById> createFindPersonById(FindPersonById value) {
-        return new JAXBElement<FindPersonById>(_FindPersonById_QNAME, FindPersonById.class, null, value);
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "downloadFileResponse")
+    public JAXBElement<DownloadFileResponse> createDownloadFileResponse(DownloadFileResponse value) {
+        return new JAXBElement<DownloadFileResponse>(_DownloadFileResponse_QNAME, DownloadFileResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FindPersonByIdResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetFileNameById }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link FindPersonByIdResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetFileNameById }{@code >}
      */
-    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "findPersonByIdResponse")
-    public JAXBElement<FindPersonByIdResponse> createFindPersonByIdResponse(FindPersonByIdResponse value) {
-        return new JAXBElement<FindPersonByIdResponse>(_FindPersonByIdResponse_QNAME, FindPersonByIdResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "getFileNameById")
+    public JAXBElement<GetFileNameById> createGetFileNameById(GetFileNameById value) {
+        return new JAXBElement<GetFileNameById>(_GetFileNameById_QNAME, GetFileNameById.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SearchPersons }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetFileNameByIdResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SearchPersons }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link GetFileNameByIdResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "searchPersons")
-    public JAXBElement<SearchPersons> createSearchPersons(SearchPersons value) {
-        return new JAXBElement<SearchPersons>(_SearchPersons_QNAME, SearchPersons.class, null, value);
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "getFileNameByIdResponse")
+    public JAXBElement<GetFileNameByIdResponse> createGetFileNameByIdResponse(GetFileNameByIdResponse value) {
+        return new JAXBElement<GetFileNameByIdResponse>(_GetFileNameByIdResponse_QNAME, GetFileNameByIdResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SearchPersonsResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListFiles }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link SearchPersonsResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link ListFiles }{@code >}
      */
-    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "searchPersonsResponse")
-    public JAXBElement<SearchPersonsResponse> createSearchPersonsResponse(SearchPersonsResponse value) {
-        return new JAXBElement<SearchPersonsResponse>(_SearchPersonsResponse_QNAME, SearchPersonsResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "listFiles")
+    public JAXBElement<ListFiles> createListFiles(ListFiles value) {
+        return new JAXBElement<ListFiles>(_ListFiles_QNAME, ListFiles.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePerson }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListFilesResponse }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link UpdatePerson }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link ListFilesResponse }{@code >}
      */
-    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "updatePerson")
-    public JAXBElement<UpdatePerson> createUpdatePerson(UpdatePerson value) {
-        return new JAXBElement<UpdatePerson>(_UpdatePerson_QNAME, UpdatePerson.class, null, value);
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "listFilesResponse")
+    public JAXBElement<ListFilesResponse> createListFilesResponse(ListFilesResponse value) {
+        return new JAXBElement<ListFilesResponse>(_ListFilesResponse_QNAME, ListFilesResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UpdatePersonResponse }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link UploadFile }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link UpdatePersonResponse }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link UploadFile }{@code >}
      */
-    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "updatePersonResponse")
-    public JAXBElement<UpdatePersonResponse> createUpdatePersonResponse(UpdatePersonResponse value) {
-        return new JAXBElement<UpdatePersonResponse>(_UpdatePersonResponse_QNAME, UpdatePersonResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "uploadFile")
+    public JAXBElement<UploadFile> createUploadFile(UploadFile value) {
+        return new JAXBElement<UploadFile>(_UploadFile_QNAME, UploadFile.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UploadFileResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link UploadFileResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://soap.se.ifmo.ru/", name = "uploadFileResponse")
+    public JAXBElement<UploadFileResponse> createUploadFileResponse(UploadFileResponse value) {
+        return new JAXBElement<UploadFileResponse>(_UploadFileResponse_QNAME, UploadFileResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link byte[]}{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link byte[]}{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "arg1", scope = UploadFile.class)
+    public JAXBElement<byte[]> createUploadFileArg1(byte[] value) {
+        return new JAXBElement<byte[]>(_UploadFileArg1_QNAME, byte[].class, UploadFile.class, ((byte[]) value));
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link byte[]}{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link byte[]}{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "return", scope = DownloadFileResponse.class)
+    public JAXBElement<byte[]> createDownloadFileResponseReturn(byte[] value) {
+        return new JAXBElement<byte[]>(_DownloadFileResponseReturn_QNAME, byte[].class, DownloadFileResponse.class, ((byte[]) value));
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link byte[]}{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link byte[]}{@code >}
+     */
+    @XmlElementDecl(namespace = "", name = "return", scope = DownloadFileByIdResponse.class)
+    public JAXBElement<byte[]> createDownloadFileByIdResponseReturn(byte[] value) {
+        return new JAXBElement<byte[]>(_DownloadFileResponseReturn_QNAME, byte[].class, DownloadFileByIdResponse.class, ((byte[]) value));
     }
 
 }

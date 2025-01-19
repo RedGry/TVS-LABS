@@ -2,17 +2,17 @@ package ru.ifmo.se.command;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.ifmo.se.soap.Person;
-import ru.ifmo.se.soap.PersonWebService;
+import ru.ifmo.se.utils.ProxyPool;
 import ru.ifmo.se.utils.Util;
 
 import java.util.Scanner;
 
 public class FindPersonByIdCommand implements CliCommand {
-    private final PersonWebService personWebService;
+    private final ProxyPool proxyPool;
     private final ObjectMapper objectMapper;
 
-    public FindPersonByIdCommand(PersonWebService personWebService, ObjectMapper objectMapper) {
-        this.personWebService = personWebService;
+    public FindPersonByIdCommand(ProxyPool proxyPool, ObjectMapper objectMapper) {
+        this.proxyPool = proxyPool;
         this.objectMapper = objectMapper;
     }
 
@@ -21,15 +21,20 @@ public class FindPersonByIdCommand implements CliCommand {
         int id = Util.getIntInput(scanner, "Enter person ID: ", -1);
 
         try {
-            Person person = personWebService.findPersonById(id);
-            if (person == null) {
-                System.out.println("Person with ID " + id + " not found.");
-                return;
-            }
+            var personWebService = proxyPool.acquireProxy();
+            try {
+                Person person = personWebService.findPersonById(id);
+                if (person == null) {
+                    System.out.println("Person with ID " + id + " not found.");
+                    return;
+                }
 
-            String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(person);
-            System.out.println("Found person: ");
-            System.out.println(json);
+                String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(person);
+                System.out.println("Found person: ");
+                System.out.println(json);
+            } finally {
+                proxyPool.releaseProxy(personWebService);
+            }
         } catch (Exception e) {
             System.out.println("Error finding person by ID: " + e.getMessage());
         }

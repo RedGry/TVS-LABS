@@ -28,6 +28,26 @@ public interface PersonWebService {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<ru.ifmo.se.soap.Person>
+     * @throws PersonServiceException
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "searchPersons", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.SearchPersons")
+    @ResponseWrapper(localName = "searchPersonsResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.SearchPersonsResponse")
+    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/searchPersonsRequest", output = "http://soap.se.ifmo.ru/PersonWebService/searchPersonsResponse", fault = {
+        @FaultAction(className = PersonServiceException.class, value = "http://soap.se.ifmo.ru/PersonWebService/searchPersons/Fault/PersonServiceException")
+    })
+    public List<Person> searchPersons(
+        @WebParam(name = "arg0", targetNamespace = "")
+        PersonListRequestDto arg0)
+        throws PersonServiceException
+    ;
+
+    /**
+     * 
      * @param personDto
      * @return
      *     returns int
@@ -83,26 +103,6 @@ public interface PersonWebService {
     public boolean deletePersonById(
         @WebParam(name = "id", targetNamespace = "")
         int id);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.util.List<ru.ifmo.se.soap.Person>
-     * @throws PersonServiceException
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "searchPersons", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.SearchPersons")
-    @ResponseWrapper(localName = "searchPersonsResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.SearchPersonsResponse")
-    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/searchPersonsRequest", output = "http://soap.se.ifmo.ru/PersonWebService/searchPersonsResponse", fault = {
-        @FaultAction(className = PersonServiceException.class, value = "http://soap.se.ifmo.ru/PersonWebService/searchPersons/Fault/PersonServiceException")
-    })
-    public List<Person> searchPersons(
-        @WebParam(name = "arg0", targetNamespace = "")
-        PersonListRequestDto arg0)
-        throws PersonServiceException
-    ;
 
     /**
      * 

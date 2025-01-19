@@ -3,6 +3,7 @@ package ru.ifmo.se;
 import ru.ifmo.se.repository.EntityManagerFactoryProvider;
 import ru.ifmo.se.repository.PersonRepository;
 import ru.ifmo.se.service.PersonService;
+import ru.ifmo.se.soap.FileWebService;
 import ru.ifmo.se.soap.PersonWebService;
 
 import jakarta.xml.ws.Endpoint;
@@ -30,6 +31,7 @@ public class Main {
 
         String url = env.getOrDefault("SOAP_SERVICE_URL", "http://localhost:8080/PersonService");
         Endpoint.publish(url, new PersonWebService(personService));
+        Endpoint.publish("http://localhost:8080/FileService", new FileWebService());
 
         System.out.println("Service started!");
     }
