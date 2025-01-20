@@ -1,27 +1,39 @@
 package ru.ifmo.se;
 
 import ru.ifmo.se.command.CliCommand;
+import ru.ifmo.se.utils.Util;
 
+import java.net.URL;
 import java.util.Map;
 import java.util.Scanner;
 
 import static ru.ifmo.se.utils.Util.produceCommands;
 
 public class CliSoapClientApp {
-    public static void main(String[] args) {
-        String soapUrl = System.getenv("SOAP_SERVICE_URL");
-        if (args.length > 0) {
-            soapUrl = args[0];
+    public final static String PERSON_SERVICE_NAME = "PersonService";
+    public final static String TVS_COMPANY_NAME = "TVS";
+
+    public static boolean SOAP_URL_SELECTED = false;
+    public static boolean SOAP_COMMANDS_PRODUCED = false;
+    public static URL SOAP_URL = null;
+
+    public static void main(String[] args) throws Exception {
+        if (args.length < 4) {
+            System.out.println("Usage: java -jar <jar-file-name>.jar <juddi-host> <juddi-port> <juddi-username> <juddi-password>");
+            System.exit(1);
         }
 
-        if (soapUrl == null || soapUrl.isEmpty()) {
-            System.out.println("SOAP service URL must be provided via environment variable or command line argument.");
-            return;
-        }
+        Scanner scanner = new Scanner(System.in);
+
+        String juddHost = args[0];
+        String juddiPort = args[1];
+        String juddiUser = args[2];
+        String juddiPassword = args[3];
+
+        Map<String, CliCommand> commands = Util.produceJuddiCommands(juddHost, juddiPort, juddiUser, juddiPassword);
+        System.out.println("Welcome to PersonService selection! Enter command to proceed. Use 'help' for help.");
 
         try {
-            Map<String, CliCommand> commands = produceCommands(soapUrl);
-            Scanner scanner = new Scanner(System.in);
 
             System.out.println("Available commands:");
             int index = 1;
@@ -55,6 +67,12 @@ public class CliSoapClientApp {
                     }
                 } else {
                     System.out.println("Unknown command. Type 'help' for a list of available commands.");
+                }
+
+                if (SOAP_URL_SELECTED && !SOAP_COMMANDS_PRODUCED) {
+                    System.out.println("Welcome to Person SOAP Service! Enter command to proceed. Use 'help' for help.");
+                    commands = produceCommands(SOAP_URL.toString());
+                    SOAP_COMMANDS_PRODUCED = true;
                 }
 
                 System.out.println();

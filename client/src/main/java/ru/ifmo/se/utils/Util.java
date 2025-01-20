@@ -4,6 +4,10 @@ import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.ifmo.se.command.*;
+import ru.ifmo.se.command.juddi.LookupServiceCommand;
+import ru.ifmo.se.command.juddi.RegisterBusinessCommand;
+import ru.ifmo.se.command.juddi.RegisterServiceCommand;
+import ru.ifmo.se.juddi.JuddiClient;
 import ru.ifmo.se.soap.PersonDto;
 import ru.ifmo.se.soap.PersonService;
 import ru.ifmo.se.soap.PersonWebService;
@@ -11,6 +15,7 @@ import ru.ifmo.se.soap.PersonWebService;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -28,6 +33,25 @@ public class Util {
                 System.out.println("Invalid input. Please enter a valid number.");
             }
         }
+    }
+
+    public static Map<String, CliCommand> produceJuddiCommands(String juddHost, String juddiPort, String user, String password) throws Exception {
+        JuddiClient juddiClient = new JuddiClient(juddHost, Integer.valueOf(juddiPort), user, password);
+        Map<String, CliCommand> commands = new LinkedHashMap<>();
+
+        LookupServiceCommand lookupServiceCommand = new LookupServiceCommand(juddiClient);
+        commands.put(lookupServiceCommand.getName(), lookupServiceCommand);
+
+        RegisterServiceCommand registerServiceCommand = new RegisterServiceCommand(juddiClient);
+        commands.put(registerServiceCommand.getName(), registerServiceCommand);
+
+        RegisterBusinessCommand registerBusinessCommand = new RegisterBusinessCommand(juddiClient);
+        commands.put(registerBusinessCommand.getName(), registerBusinessCommand);
+
+        HelpCommand helpCommand = new HelpCommand(commands);
+        commands.put(helpCommand.getName(), helpCommand);
+
+        return commands;
     }
 
     public static Map<String, CliCommand> produceCommands(String soapUrl) throws Exception {

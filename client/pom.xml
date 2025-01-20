@@ -9,54 +9,47 @@
     <version>1.0.0</version>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <maven.compiler.release>17</maven.compiler.release>
+        <java.version>8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jakarta.xml.ws-api.version>4.0.0</jakarta.xml.ws-api.version>
-        <jaxws-rt.version>4.0.1</jaxws-rt.version>
-        <jaxws-ri.version>4.0.1</jaxws-ri.version>
+        <jaxws-rt.version>2.3.3</jaxws-rt.version>
+        <jaxws-ri.version>2.3.3</jaxws-ri.version>
         <jaxws-maven-plugin.version>3.0.0</jaxws-maven-plugin.version>
     </properties>
     <dependencies>
+        <!-- JAX-WS Runtime -->
         <dependency>
-            <groupId>jakarta.xml.ws</groupId>
-            <artifactId>jakarta.xml.ws-api</artifactId>
-            <version>${jakarta.xml.ws-api.version}</version>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>2.3.3</version>
+            <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.14.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-rt</artifactId>
-            <version>${jaxws-rt.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-ri</artifactId>
-            <version>${jaxws-ri.version}</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>3.0.1</version>
-        </dependency>
+
+        <!-- JAXB Runtime -->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
             <version>3.0.1</version>
         </dependency>
+
+        <!-- Apache jUDDI -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>2.0.0</version>
+            <groupId>org.apache.juddi</groupId>
+            <artifactId>juddi-client</artifactId>
+            <version>3.3.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.juddi</groupId>
+            <artifactId>uddi-ws</artifactId>
+            <version>3.3.10</version>
         </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
@@ -75,7 +68,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <finalName>lab1-client</finalName>
+                    <finalName>lab7-client</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
@@ -108,7 +101,7 @@
 <!--            <plugin>-->
 <!--                <groupId>com.sun.xml.ws</groupId>-->
 <!--                <artifactId>jaxws-maven-plugin</artifactId>-->
-<!--                <version>${jaxws-maven-plugin.version}</version>-->
+<!--                <version>2.3.7</version>-->
 <!--                <executions>-->
 <!--                    <execution>-->
 <!--                        <goals>-->
@@ -118,28 +111,20 @@
 <!--                </executions>-->
 <!--                <configuration>-->
 <!--                    <wsdlUrls>-->
-<!--                        <wsdlUrl>http://localhost:8080/PersonService?wsdl</wsdlUrl>-->
+<!--                        <wsdlUrl>http://localhost:8081/PersonService?wsdl</wsdlUrl>-->
 <!--                    </wsdlUrls>-->
 <!--                    <verbose>true</verbose>-->
 <!--                    <sourceDestDir>${basedir}/src/main/java</sourceDestDir>-->
 <!--                    <extension>true</extension>-->
+<!--                    <xjcArgs>-->
+<!--                        <xjcArg>-Xsetters</xjcArg>-->
+<!--                    </xjcArgs>-->
 <!--                </configuration>-->
 <!--                <dependencies>-->
-<!--                    &lt;!&ndash; JAXB API and Runtime for wsimport &ndash;&gt;-->
 <!--                    <dependency>-->
-<!--                        <groupId>jakarta.xml.bind</groupId>-->
-<!--                        <artifactId>jakarta.xml.bind-api</artifactId>-->
-<!--                        <version>3.0.1</version>-->
-<!--                    </dependency>-->
-<!--                    <dependency>-->
-<!--                        <groupId>org.glassfish.jaxb</groupId>-->
-<!--                        <artifactId>jaxb-runtime</artifactId>-->
-<!--                        <version>3.0.1</version>-->
-<!--                    </dependency>-->
-<!--                    <dependency>-->
-<!--                        <groupId>com.sun.xml.bind</groupId>-->
-<!--                        <artifactId>jaxb-xjc</artifactId>-->
-<!--                        <version>3.0.1</version>-->
+<!--                        <groupId>org.jvnet.jaxb</groupId>-->
+<!--                        <artifactId>jaxb2-basics</artifactId>-->
+<!--                        <version>2.0.9</version>-->
 <!--                    </dependency>-->
 <!--                </dependencies>-->
 <!--            </plugin>-->
