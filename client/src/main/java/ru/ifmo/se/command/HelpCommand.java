@@ -12,7 +12,7 @@ public class HelpCommand implements CliCommand {
     }
 
     @Override
-    public void execute(Scanner scanner) {
+    public void execute(Scanner scanner, String authHeader) {
         System.out.println("Available commands:");
         AtomicInteger index = new AtomicInteger(1);
         commands.values().forEach(command -> System.out.println(

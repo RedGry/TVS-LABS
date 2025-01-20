@@ -19,7 +19,7 @@ public class FilterPersonCommand implements CliCommand {
     }
 
     @Override
-    public void execute(Scanner scanner) {
+    public void execute(Scanner scanner, String authHeader) {
         try {
             System.out.println("Available fields for filtering Person:");
             for (Field field : PersonDto.class.getDeclaredFields()) {

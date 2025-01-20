@@ -2,6 +2,8 @@ package ru.ifmo.se;
 
 import ru.ifmo.se.command.CliCommand;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -10,9 +12,15 @@ import static ru.ifmo.se.utils.Util.produceCommands;
 public class CliRestClientApp {
     public static void main(String[] args) {
         String restUrl = System.getenv("REST_SERVICE_URL");
-        if (args.length > 0) {
-            restUrl = args[0];
+        if (args.length < 2) {
+            System.out.println("Usage: java CliRestClientApp <username> <password>");
+            return;
         }
+
+        String username = args[0];
+        String password = args[1];
+
+        String authHeader = getAuthHeader(username, password);
 
         if (restUrl == null || restUrl.isEmpty()) {
             System.out.println("REST service URL must be provided via environment variable or command line argument.");
@@ -49,7 +57,7 @@ public class CliRestClientApp {
 
                 if (command != null) {
                     try {
-                        command.execute(scanner);
+                        command.execute(scanner, authHeader);
                     } catch (Exception e) {
                         System.out.println("Cannot execute command. REST service is not available.");
                     }
@@ -76,5 +84,10 @@ public class CliRestClientApp {
         } catch (Exception e) {
             System.out.println("Failed to clear the console.");
         }
+    }
+
+    private static String getAuthHeader(String username, String password) {
+        String auth = username + ":" + password;
+        return "Basic " + Base64.getEncoder().encodeToString(auth.getBytes(StandardCharsets.UTF_8));
     }
 }

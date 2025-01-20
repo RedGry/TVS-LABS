@@ -9,6 +9,7 @@ import ru.ifmo.se.controller.PersonRestController;
 import ru.ifmo.se.mapper.PersonServiceExceptionMapper;
 import ru.ifmo.se.repository.EntityManagerFactoryProvider;
 import ru.ifmo.se.repository.PersonRepository;
+import ru.ifmo.se.security.BasicAuthFilter;
 import ru.ifmo.se.service.PersonService;
 
 import java.net.URI;
@@ -34,6 +35,7 @@ public class Main {
         PersonService personService = new PersonService(personRepository);
 
         ResourceConfig config = new ResourceConfig();
+        config.register(BasicAuthFilter.class);
         config.register(JacksonJsonProvider.class);
         config.register(new PersonRestController(personService));
         config.register(new PersonServiceExceptionMapper());

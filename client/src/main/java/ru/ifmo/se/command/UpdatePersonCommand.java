@@ -14,7 +14,7 @@ public class UpdatePersonCommand implements CliCommand {
     }
 
     @Override
-    public void execute(Scanner scanner) {
+    public void execute(Scanner scanner, String authHeader) {
         int id = Util.getIntInput(scanner, "Enter person ID to update: ", -1);
 
         try {
@@ -27,7 +27,7 @@ public class UpdatePersonCommand implements CliCommand {
             System.out.println("Person found. Enter new details to update.");
             PersonDto updatedPersonDto = Util.getPersonDtoFromInput(scanner);
 
-            boolean success = personRestClient.updatePerson(id, updatedPersonDto);
+            boolean success = personRestClient.updatePerson(id, updatedPersonDto, authHeader);
             if (success) {
                 System.out.println("Person updated successfully.");
             } else {

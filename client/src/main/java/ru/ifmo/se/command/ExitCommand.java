@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class ExitCommand implements CliCommand {
 
     @Override
-    public void execute(Scanner scanner) {
+    public void execute(Scanner scanner, String authHeader) {
         System.out.println("Exiting application.");
         System.exit(0);
     }

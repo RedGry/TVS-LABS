@@ -51,10 +51,11 @@ public class PersonRestClient {
         }
     }
 
-    public int createPerson(PersonDto person) throws Exception {
+    public int createPerson(PersonDto person, String authHeader) throws Exception {
         Response response = client.target(baseUrl)
                 .path("/persons")
                 .request(MediaType.APPLICATION_JSON)
+                .header("Authorization", authHeader)
                 .post(Entity.entity(person, MediaType.APPLICATION_JSON));
 
         if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
@@ -64,11 +65,12 @@ public class PersonRestClient {
         }
     }
 
-    public boolean updatePerson(int id, PersonDto person) throws Exception {
+    public boolean updatePerson(int id, PersonDto person, String authHeader) throws Exception {
         Response response = client.target(baseUrl)
                 .path("/persons/{id}")
                 .resolveTemplate("id", id)
                 .request(MediaType.APPLICATION_JSON)
+                .header("Authorization", authHeader)
                 .put(Entity.entity(person, MediaType.APPLICATION_JSON));
         if (response.getStatus() == Response.Status.OK.getStatusCode()) {
             return true;
@@ -79,11 +81,12 @@ public class PersonRestClient {
         }
     }
 
-    public boolean deletePerson(int id) throws Exception {
+    public boolean deletePerson(int id, String authHeader) throws Exception {
         Response response = client.target(baseUrl)
                 .path("/persons/{id}")
                 .resolveTemplate("id", id)
                 .request(MediaType.APPLICATION_JSON)
+                .header("Authorization", authHeader)
                 .delete();
         if (response.getStatus() == Response.Status.OK.getStatusCode()) {
             return true;

@@ -17,7 +17,7 @@ public class FindPersonByIdCommand implements CliCommand {
     }
 
     @Override
-    public void execute(Scanner scanner) {
+    public void execute(Scanner scanner, String authHeader) {
         int id = Util.getIntInput(scanner, "Enter person ID: ", -1);
 
         try {

@@ -13,11 +13,11 @@ public class DeletePersonCommand implements CliCommand {
     }
 
     @Override
-    public void execute(Scanner scanner) {
+    public void execute(Scanner scanner, String authHeader) {
         int id = Util.getIntInput(scanner, "Enter person ID to delete: ", -1);
 
         try {
-            boolean success = personRestClient.deletePerson(id);
+            boolean success = personRestClient.deletePerson(id, authHeader);
             if (success) {
                 System.out.println("Person deleted successfully.");
             } else {

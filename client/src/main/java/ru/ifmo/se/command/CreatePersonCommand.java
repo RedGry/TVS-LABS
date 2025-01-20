@@ -14,11 +14,11 @@ public class CreatePersonCommand implements CliCommand {
     }
 
     @Override
-    public void execute(Scanner scanner) {
+    public void execute(Scanner scanner, String authHeader) {
         PersonDto personDto = Util.getPersonDtoFromInput(scanner);
 
         try {
-            int id = personRestClient.createPerson(personDto);
+            int id = personRestClient.createPerson(personDto, authHeader);
             System.out.println("Created person with ID: " + id);
         } catch (Exception e) {
             System.out.println("Error creating person: " + e.getMessage());
