@@ -28,7 +28,7 @@ public class Main {
         PersonRepository personRepository = new PersonRepository(entityManagerFactoryProvider.getEntityManagerFactory());
         PersonService personService = new PersonService(personRepository);
 
-        String url = env.getOrDefault("SOAP_SERVICE_URL", "http://localhost:8080/PersonService");
+        String url = env.getOrDefault("SOAP_SERVICE_URL", "http://localhost:8081/PersonService");
         Endpoint.publish(url, new PersonWebService(personService));
 
         System.out.println("Service started!");
