@@ -1,6 +1,7 @@
 package ru.ifmo.se;
 
 import ru.ifmo.se.command.CliCommand;
+import ru.ifmo.se.utils.AuthCredentials;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -10,9 +11,14 @@ import static ru.ifmo.se.utils.Util.produceCommands;
 public class CliSoapClientApp {
     public static void main(String[] args) {
         String soapUrl = System.getenv("SOAP_SERVICE_URL");
-        if (args.length > 0) {
-            soapUrl = args[0];
+        if (args.length < 2) {
+            System.out.println("Usage: java CliSoapClientApp <username> <password>");
+            return;
         }
+
+        String username = args[0];
+        String password = args[1];
+        AuthCredentials authCredentials = new AuthCredentials(username, password);
 
         if (soapUrl == null || soapUrl.isEmpty()) {
             System.out.println("SOAP service URL must be provided via environment variable or command line argument.");
@@ -20,7 +26,7 @@ public class CliSoapClientApp {
         }
 
         try {
-            Map<String, CliCommand> commands = produceCommands(soapUrl);
+            Map<String, CliCommand> commands = produceCommands(soapUrl, authCredentials);
             Scanner scanner = new Scanner(System.in);
 
             System.out.println("Available commands:");

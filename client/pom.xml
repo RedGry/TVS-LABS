@@ -56,6 +56,12 @@
             <artifactId>slf4j-simple</artifactId>
             <version>2.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -105,44 +111,44 @@
                 </configuration>
             </plugin>
 <!--            Используется для генерации .java файлов в soap (нужно, чтобы wsdl был доступен по URL)-->
-<!--            <plugin>-->
-<!--                <groupId>com.sun.xml.ws</groupId>-->
-<!--                <artifactId>jaxws-maven-plugin</artifactId>-->
-<!--                <version>${jaxws-maven-plugin.version}</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>wsimport</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <wsdlUrls>-->
-<!--                        <wsdlUrl>http://localhost:8080/PersonService?wsdl</wsdlUrl>-->
-<!--                    </wsdlUrls>-->
-<!--                    <verbose>true</verbose>-->
-<!--                    <sourceDestDir>${basedir}/src/main/java</sourceDestDir>-->
-<!--                    <extension>true</extension>-->
-<!--                </configuration>-->
-<!--                <dependencies>-->
-<!--                    &lt;!&ndash; JAXB API and Runtime for wsimport &ndash;&gt;-->
-<!--                    <dependency>-->
-<!--                        <groupId>jakarta.xml.bind</groupId>-->
-<!--                        <artifactId>jakarta.xml.bind-api</artifactId>-->
-<!--                        <version>3.0.1</version>-->
-<!--                    </dependency>-->
-<!--                    <dependency>-->
-<!--                        <groupId>org.glassfish.jaxb</groupId>-->
-<!--                        <artifactId>jaxb-runtime</artifactId>-->
-<!--                        <version>3.0.1</version>-->
-<!--                    </dependency>-->
-<!--                    <dependency>-->
-<!--                        <groupId>com.sun.xml.bind</groupId>-->
-<!--                        <artifactId>jaxb-xjc</artifactId>-->
-<!--                        <version>3.0.1</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>com.sun.xml.ws</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>${jaxws-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <wsdlUrls>
+                        <wsdlUrl>http://localhost:8080/PersonService?wsdl</wsdlUrl>
+                    </wsdlUrls>
+                    <verbose>true</verbose>
+                    <sourceDestDir>${basedir}/src/main/java</sourceDestDir>
+                    <extension>true</extension>
+                </configuration>
+                <dependencies>
+                    <!-- JAXB API and Runtime for wsimport -->
+                    <dependency>
+                        <groupId>jakarta.xml.bind</groupId>
+                        <artifactId>jakarta.xml.bind-api</artifactId>
+                        <version>3.0.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.glassfish.jaxb</groupId>
+                        <artifactId>jaxb-runtime</artifactId>
+                        <version>3.0.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.xml.bind</groupId>
+                        <artifactId>jaxb-xjc</artifactId>
+                        <version>3.0.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
 </project>

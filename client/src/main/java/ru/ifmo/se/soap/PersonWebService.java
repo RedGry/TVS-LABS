@@ -29,26 +29,6 @@ public interface PersonWebService {
     /**
      * 
      * @param personDto
-     * @return
-     *     returns int
-     * @throws PersonServiceException
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "createPerson", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.CreatePerson")
-    @ResponseWrapper(localName = "createPersonResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.CreatePersonResponse")
-    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/createPersonRequest", output = "http://soap.se.ifmo.ru/PersonWebService/createPersonResponse", fault = {
-        @FaultAction(className = PersonServiceException.class, value = "http://soap.se.ifmo.ru/PersonWebService/createPerson/Fault/PersonServiceException")
-    })
-    public int createPerson(
-        @WebParam(name = "personDto", targetNamespace = "")
-        PersonDto personDto)
-        throws PersonServiceException
-    ;
-
-    /**
-     * 
-     * @param personDto
      * @param id
      * @return
      *     returns boolean
@@ -83,6 +63,26 @@ public interface PersonWebService {
     public boolean deletePersonById(
         @WebParam(name = "id", targetNamespace = "")
         int id);
+
+    /**
+     * 
+     * @param personDto
+     * @return
+     *     returns int
+     * @throws PersonServiceException
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "createPerson", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.CreatePerson")
+    @ResponseWrapper(localName = "createPersonResponse", targetNamespace = "http://soap.se.ifmo.ru/", className = "ru.ifmo.se.soap.CreatePersonResponse")
+    @Action(input = "http://soap.se.ifmo.ru/PersonWebService/createPersonRequest", output = "http://soap.se.ifmo.ru/PersonWebService/createPersonResponse", fault = {
+        @FaultAction(className = PersonServiceException.class, value = "http://soap.se.ifmo.ru/PersonWebService/createPerson/Fault/PersonServiceException")
+    })
+    public int createPerson(
+        @WebParam(name = "personDto", targetNamespace = "")
+        PersonDto personDto)
+        throws PersonServiceException
+    ;
 
     /**
      * 
